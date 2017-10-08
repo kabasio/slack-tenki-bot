@@ -1,5 +1,6 @@
 const request = require('request');
 
+const run = () => {
 const headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
 };
@@ -40,5 +41,10 @@ const handleYahooRes = (error, response, body) => {
   request(slackOpt, handleSlackRes);
 };
 
+
 // 1. YahooのAPIサーバーにGETメソッドでリクエストを送る
 request(yahooOpt, handleYahooRes);
+
+};
+
+run();
