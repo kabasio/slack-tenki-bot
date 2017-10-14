@@ -26,6 +26,15 @@ const weather = () => {
     console.log(error);
     console.log('statusCode', response && response.statusCode);
     const rainfall = JSON.parse(body).Feature[0].Property.WeatherList.Weather[0].Rainfall;
+
+    let message;
+
+    if (rainfall > 0) {
+      message = '今日は雨です。';
+    } else {
+      message = '今日は晴れか曇りです';
+    }
+
     const slackOpt = {
       url: 'https://slack.com/api/chat.postMessage',
       method: 'POST',
@@ -34,7 +43,7 @@ const weather = () => {
       form: {
         token: process.env.TOKEN,
         channel: process.env.CHANNEL_ID,
-        text: `降水強度は${rainfall}%です。`,
+        text: message,
       },
     };
     // 3.Yahooからのレスポンスで受け取った情報をSlackのAPIサーバーにPOSTメソッドでリクエスト
